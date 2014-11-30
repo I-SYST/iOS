@@ -43,7 +43,7 @@ typedef struct __attribute__((packed)) {
 
 - (IBAction)segmentAction:(id)sender
 {
-    UITableViewCell* cell = [[[sender superview] superview] superview];
+    UITableViewCell* cell = [[sender superview] superview];
     NSIndexPath *indexPath =
     [self.TableView indexPathForCell:cell];
     NSUInteger row = indexPath.row;
@@ -55,7 +55,7 @@ typedef struct __attribute__((packed)) {
 
 - (IBAction)switchAction:(id)sender
 {
-    UITableViewCell* cell = [[[sender superview] superview] superview];
+    UITableViewCell* cell = [[sender superview] superview] ;
     NSIndexPath *indexPath =
     [self.TableView indexPathForCell:cell];
     NSUInteger row = indexPath.row;

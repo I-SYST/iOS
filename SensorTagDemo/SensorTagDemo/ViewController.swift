@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import simd
 
 class ViewController: UIViewController, CBCentralManagerDelegate {
 
@@ -25,11 +26,15 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
         
     }
 
+    @IBOutlet weak var graphView : GraphView!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var humiLabel : UILabel!
     @IBOutlet weak var pressLabel : UILabel!
     @IBOutlet weak var rssiLabel : UILabel!
-
+    @IBOutlet weak var aqiLabel : UILabel!
+    @IBOutlet weak var batLevelLabel : UILabel!
+    @IBOutlet weak var batVoltLabel : UILabel!
+    
     // MARK: BLE Central
     
     func centralManager(_ central: CBCentralManager,
@@ -48,28 +53,53 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
         
         //sensorData.text = sensorData.text + "FOUND PERIPHERALS: \(peripheral) AdvertisementData: \(advertisementData) RSSI: \(RSSI)\n"
         var manId = UInt16(0)
-        (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&manId, range: NSMakeRange(0, 2))
+        let manData = advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData
+        
+        if manData.length < 3 {
+            return
+        }
+        //(advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&manId, range: NSMakeRange(0, 2))
+        manData.getBytes(&manId, range: NSMakeRange(0, 2))
         if manId != 0x177 {
             return
         }
         
         var type = UInt8(0)
-        (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&type, range: NSMakeRange(2, 1))
-        if (type != 1) {
-            return
+        //(advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&type, range: NSMakeRange(2, 1))
+        manData.getBytes(&type, range: NSMakeRange(2, 1))
+        
+        switch (type) {
+        	case 1:
+                var press = Int32(0)
+                (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&press, range: NSMakeRange(3, 4))
+                pressLabel.text = String(format:"%.2f KPa", Float(press) / 1000.0)
+                
+                var temp = Int16(0)
+                (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&temp, range: NSMakeRange(7, 2))
+                tempLabel.text = String(format:"%.2f C", Float(temp) / 100.0)
+                
+                var humi = UInt16(0)
+                (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&humi, range: NSMakeRange(9, 2))
+                humiLabel.text = String(format:"%d%%", humi / 100)
+                graphView.add(double3(Double(temp) / 100.0, Double(press) / 1000.0, Double(humi) / 100.0))
+            	break
+        	case 2:
+                var aqi = UInt16(0)
+                (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&aqi, range: NSMakeRange(3, 2))
+            	break
+        	case 16:
+                var batLevel = UInt8(0)
+                (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&batLevel, range: NSMakeRange(3, 1))
+                batLevelLabel.text = String(format:"%d%%", batLevel)
+
+                var batVolt = Int32(0)
+                (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&batVolt, range: NSMakeRange(4, 4))
+                batVoltLabel.text = String(format:"%.2fV", Float(batVolt) / 1000.0)
+                
+            	break
+        	default:
+            	break
         }
-		
-        var press = Int32(0)
-        (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&press, range: NSMakeRange(3, 4))
-        pressLabel.text = String(format:"%.2f KPa", Float(press) / 100000.0)
-        
-        var temp = Int16(0)
-        (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&temp, range: NSMakeRange(7, 2))
-        tempLabel.text = String(format:"%.2f C", Float(temp) / 100.0)
-        
-        var humi = UInt16(0)
-        (advertisementData[CBAdvertisementDataManufacturerDataKey] as! NSData).getBytes(&humi, range: NSMakeRange(9, 2))
-        humiLabel.text = String(format:"%d%%", humi / 100)
 
         rssiLabel.text = String( describing: RSSI)
     }

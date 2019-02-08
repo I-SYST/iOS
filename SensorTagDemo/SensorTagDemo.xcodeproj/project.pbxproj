@@ -16,6 +16,9 @@
 		40EC6C341F8AB9BA00E90619 /* SensorTagDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EC6C331F8AB9BA00E90619 /* SensorTagDemoTests.swift */; };
 		40EC6C3F1F8AB9BA00E90619 /* SensorTagDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EC6C3E1F8AB9BA00E90619 /* SensorTagDemoUITests.swift */; };
 		40EC6C4D1F8AC13200E90619 /* I-SYST_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 40EC6C4C1F8AC13200E90619 /* I-SYST_Logo.png */; };
+		40F88F151F96BD8900E54E17 /* GraphSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F88F121F96BD8900E54E17 /* GraphSegment.swift */; };
+		40F88F161F96BD8900E54E17 /* CGContext+GraphLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F88F131F96BD8900E54E17 /* CGContext+GraphLines.swift */; };
+		40F88F171F96BD8900E54E17 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F88F141F96BD8900E54E17 /* GraphView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		40EC6C3E1F8AB9BA00E90619 /* SensorTagDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorTagDemoUITests.swift; sourceTree = "<group>"; };
 		40EC6C401F8AB9BA00E90619 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40EC6C4C1F8AC13200E90619 /* I-SYST_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "I-SYST_Logo.png"; sourceTree = "<group>"; };
+		40F88F121F96BD8900E54E17 /* GraphSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphSegment.swift; sourceTree = "<group>"; };
+		40F88F131F96BD8900E54E17 /* CGContext+GraphLines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGContext+GraphLines.swift"; sourceTree = "<group>"; };
+		40F88F141F96BD8900E54E17 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,9 @@
 		40EC6C1A1F8AB9BA00E90619 /* SensorTagDemo */ = {
 			isa = PBXGroup;
 			children = (
+				40F88F131F96BD8900E54E17 /* CGContext+GraphLines.swift */,
+				40F88F121F96BD8900E54E17 /* GraphSegment.swift */,
+				40F88F141F96BD8900E54E17 /* GraphView.swift */,
 				40EC6C4C1F8AC13200E90619 /* I-SYST_Logo.png */,
 				40EC6C1B1F8AB9BA00E90619 /* AppDelegate.swift */,
 				40EC6C1D1F8AB9BA00E90619 /* ViewController.swift */,
@@ -268,7 +277,10 @@
 			files = (
 				40EC6C1E1F8AB9BA00E90619 /* ViewController.swift in Sources */,
 				40EC6C1C1F8AB9BA00E90619 /* AppDelegate.swift in Sources */,
+				40F88F161F96BD8900E54E17 /* CGContext+GraphLines.swift in Sources */,
+				40F88F151F96BD8900E54E17 /* GraphSegment.swift in Sources */,
 				40EC6C241F8AB9BA00E90619 /* SensorTagDemo.xcdatamodeld in Sources */,
+				40F88F171F96BD8900E54E17 /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,13 +446,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GZD6X2TVP8;
 				INFOPLIST_FILE = SensorTagDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.i-syst.SensorTagDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -450,13 +465,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GZD6X2TVP8;
 				INFOPLIST_FILE = SensorTagDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.i-syst.SensorTagDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
